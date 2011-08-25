@@ -1,0 +1,64 @@
+// Mix-Ins
+// from lesscss.org
+.rounded-corners(@radius: 5px) {
+	border-radius: @radius;
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+}
+// a percentage-based column layout
+.layout(@cols:1, @margin:0.4%, @padding:0.4%) {
+	width:100%;
+	position:relative;
+	clear:left;
+	
+	@columnWidth: 100%/@cols;
+	
+	.MIXIN-column(@span:1) {
+		width: @columnWidth * @span - (@margin*2) - (@padding*2);
+		border:0;
+		margin:@margin;
+		padding:@padding;
+		float:left;
+		position:relative;
+		height:100%;
+	}
+	.column, .column-1 {.MIXIN-column;}
+	.column-2 {.MIXIN-column(2);}
+	.column-3 {.MIXIN-column(3);}
+	.column-4 {.MIXIN-column(4);}
+	.column-5 {.MIXIN-column(5);}
+	.column-6 {.MIXIN-column(6);}
+	.column-7 {.MIXIN-column(7);}
+	.column-8 {.MIXIN-column(8);}
+	.column-9 {.MIXIN-column(9);}
+	.column-10 {.MIXIN-column(10);}
+	.column-11 {.MIXIN-column(11);}
+}
+
+// Page display
+body {
+	background:#123;
+	min-width:760px;
+}
+#in, #out {
+	.rounded-corners(8px);
+	position:absolute;
+	bottom:0;top:0;left:0;right:0;
+	width:100%;height:100%;
+}
+#convert {
+	position:absolute;
+	left:0;right:0;
+	height:100%;width:100%;
+	margin:0 auto;
+}
+.layout-11 {
+	.layout(11);
+	height:480px;
+}
+.headrow {
+	height:1em;
+	color:#FFF;
+	font:0.7em sans-serif;
+	text-align:center;
+}

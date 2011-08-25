@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>Less Converter</title>
+	<link rel="stylesheet/less" type="text/css" href="less-converter.less">
+	<script src="http://lesscss.googlecode.com/files/less-1.1.3.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+</head>
+<body>
+
+	<div class="layout-11 headrow">
+		<div class="column-5">Put your less code in here</div>
+		<div class="column">Click this</div>
+		<div class="column-5">Your CSS will come out over here</div>
+	</div>
+
+	<div class="layout-11">
+		<div class="column-5">
+			<textarea name="in" id="in" rows="10" cols="50"></textarea>
+		</div>
+		<div class="column-1">
+			<input type="button" id="convert" value="Convert &raquo;" />
+		</div>
+		<div class="column-5">
+			<textarea name="out" id="out" rows="10" cols="50"></textarea>
+		</div>
+	</div>
+
+	
+	<script>
+		$("#convert").click(function(){
+			var input = $("#in").val();
+			$("#out").empty();
+			try {
+				new(less.Parser)().parse(input, function (err, tree) {
+					if (err) {
+						output = "Error, "+err.name+" on line "+err.line+":\n"+err.message;
+						$("#out").val(output);
+					} else {
+						output = tree.toCSS();
+						$("#out").val(output);
+					}
+				});
+			} catch (err) {
+				if (err.line) {
+					$("#out").val("Error line "+err.line+":\n"+err.message);
+				} else {
+					$("#out").val("Could not parse line "+err.callLine+":\n"+err.callExtract);
+				}
+				//console.log(err);
+			}
+		});
+	</script>
+</body>
+</html>
